@@ -23,6 +23,6 @@ public interface ReadingDao {
     @Query("delete from reading_table")
     void deleteAll();
 
-    @Query("select * from reading_table order by dateMeasured desc")
+    @Query("select * from reading_table")
     LiveData<List<Reading>> getAllReadings();
 }

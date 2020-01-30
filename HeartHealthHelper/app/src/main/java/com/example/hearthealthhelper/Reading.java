@@ -2,15 +2,17 @@ package com.example.hearthealthhelper;
 
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+import androidx.room.TypeConverters;
 
 import java.util.Date;
 
 @Entity(tableName = "reading_table")
+@TypeConverters({Converters.class})
 public class Reading {
-    private Date dateMeasured;
-
     @PrimaryKey(autoGenerate = true)
     private int id;
+
+    private Date dateMeasured;
     private int systolicPressure;
     private int diastolicPressure;
     private int heartRate;

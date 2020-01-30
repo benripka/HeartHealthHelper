@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -28,11 +29,16 @@ public class ReadingAdapter extends RecyclerView.Adapter<ReadingAdapter.ReadingH
 
     @Override
     public void onBindViewHolder(@NonNull ReadingHolder holder, int position) {
+
         Reading currentReading =allReadings.get(position);
-        holder.heartRate.setText(currentReading.getHeartRate());
-        holder.systolicPressure.setText(currentReading.getSystolicPressure());
-        holder.diastolicPressure.setText(currentReading.getDiastolicPressure());
-        holder.dateMeasured.setText(currentReading.getDateMeasured().toString());
+
+        SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy");
+        String formattedDate = format.format(currentReading.getDateMeasured());
+
+        holder.heartRate.setText(Integer.toString(currentReading.getHeartRate()));
+        holder.systolicPressure.setText(Integer.toString(currentReading.getSystolicPressure()));
+        holder.diastolicPressure.setText(Integer.toString(currentReading.getDiastolicPressure()));
+        holder.dateMeasured.setText(formattedDate);
         holder.comment.setText(currentReading.getComment());
     }
 
@@ -43,9 +49,10 @@ public class ReadingAdapter extends RecyclerView.Adapter<ReadingAdapter.ReadingH
 
     public void setAllReadings(List<Reading> readings)  {
         this.allReadings = readings;
+        notifyDataSetChanged();
     }
 
-    public class ReadingHolder extends RecyclerView.ViewHolder {
+    class ReadingHolder extends RecyclerView.ViewHolder {
         private TextView heartRate;
         private TextView systolicPressure;
         private TextView diastolicPressure;
@@ -58,7 +65,8 @@ public class ReadingAdapter extends RecyclerView.Adapter<ReadingAdapter.ReadingH
             this.dateMeasured = itemView.findViewById(R.id.reading_date);
             this.systolicPressure = itemView.findViewById(R.id.systolic_pressure_title);
             this.diastolicPressure = itemView.findViewById(R.id.diastolic_pressure_title);
-            this.comment = itemView.findViewById(R.id.reading_comment);
+            this.comment = itemView.findViewById(R.id.comment_title);
+            this.dateMeasured = itemView.findViewById(R.id.reading_date);
         }
     }
 }

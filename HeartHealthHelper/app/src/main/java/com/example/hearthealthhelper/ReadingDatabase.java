@@ -12,40 +12,39 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import java.util.Date;
 
-@Database(entities = Reading.class, version = 1, exportSchema = false)
-@TypeConverters({Converters.class})
+@Database(entities = {Reading.class}, version = 1, exportSchema = false)
 public abstract class ReadingDatabase extends RoomDatabase {
 
     private static ReadingDatabase instance;
 
-    public abstract ReadingDao ReadingDao();
+    public abstract ReadingDao readingDao();
 
     public static synchronized ReadingDatabase GetInstance(Context context) {
         if(instance == null) {
-            instance = Room.databaseBuilder(context.getApplicationContext(), ReadingDatabase.class, "reading_database").fallbackToDestructiveMigration().build();
+            instance = Room.databaseBuilder(context.getApplicationContext(), ReadingDatabase.class, "reading_database")
+                    .addCallback(new Callback() {
+                        @Override
+                        public void onCreate(@NonNull SupportSQLiteDatabase db) {
+                            super.onCreate(db);
+                            new PopulateDbTask(instance).execute();
+                        }
+                    }).fallbackToDestructiveMigration()
+                    .build();
         }
         return instance;
     }
-
-    private static RoomDatabase.Callback onCreate = new RoomDatabase.Callback() {
-        @Override
-        public void onCreate(@NonNull SupportSQLiteDatabase db) {
-            super.onCreate(db);
-            new PopulateDbTask(instance).execute();
-        }
-    };
 
     private static class PopulateDbTask extends AsyncTask<Void, Void, Void> {
 
         private ReadingDao readingDao;
 
         public PopulateDbTask(ReadingDatabase readingDb) {
-            this.readingDao = readingDb.ReadingDao();
+            this.readingDao = readingDb.readingDao();
         }
 
         @Override
         protected Void doInBackground(Void... voids) {
-            readingDao.insert(new Reading(new Date(), 120, 80, 65, "Everything seems ok"));
+            readingDao.insert(new Reading(new Date(),120, 80, 65, "Everything seems ok"));
             readingDao.insert(new Reading(new Date(), 134, 82, 34, "Everything seems ok"));
             readingDao.insert(new Reading(new Date(), 137, 45, 45, "Everything seems ok"));
             return null;

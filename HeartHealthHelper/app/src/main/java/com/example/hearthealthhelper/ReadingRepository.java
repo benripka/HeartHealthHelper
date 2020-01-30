@@ -13,22 +13,22 @@ public class ReadingRepository {
 
     public ReadingRepository(Application application) {
         ReadingDatabase readingDatabase = ReadingDatabase.GetInstance(application);
-        this.readingDao = readingDatabase.ReadingDao();
+        this.readingDao = readingDatabase.readingDao();
         this.allReadings = readingDao.getAllReadings();
     }
 
-    public void insert(Reading reading) { new InsertReadingAsyncTask(readingDao).execute(); }
+    public void insert(Reading reading) { new InsertReadingAsyncTask(readingDao).execute(reading); }
     public void delete(Reading reading) {new DeleteReadingAsyncTask(readingDao).execute(); }
     public void  update(Reading reading) { new UpdateReadingAsyncTask(readingDao).execute(); }
     public void deleteAll() { new DeleteAllReadingsAsyncTask(readingDao).execute();}
     public LiveData<List<Reading>> getAllReadings() { return allReadings; }
 
 
-    private class InsertReadingAsyncTask extends AsyncTask<Reading, Void, Void> {
+    private static class InsertReadingAsyncTask extends AsyncTask<Reading, Void, Void> {
 
         private ReadingDao readingDao;
 
-        public InsertReadingAsyncTask(ReadingDao readingDao) {
+        private InsertReadingAsyncTask(ReadingDao readingDao) {
             this.readingDao = readingDao;
         }
         @Override
@@ -38,7 +38,7 @@ public class ReadingRepository {
         }
     }
 
-    private class DeleteReadingAsyncTask extends AsyncTask<Reading, Void, Void> {
+    private static class DeleteReadingAsyncTask extends AsyncTask<Reading, Void, Void> {
         private ReadingDao readingDao;
 
         public DeleteReadingAsyncTask(ReadingDao readingDao) {
@@ -51,7 +51,7 @@ public class ReadingRepository {
         }
     }
 
-    private class UpdateReadingAsyncTask extends  AsyncTask<Reading, Void, Void> {
+    private static class UpdateReadingAsyncTask extends  AsyncTask<Reading, Void, Void> {
         private ReadingDao readingDao;
 
         public UpdateReadingAsyncTask(ReadingDao readingDao) {
@@ -64,7 +64,7 @@ public class ReadingRepository {
         }
     }
 
-    private class DeleteAllReadingsAsyncTask extends  AsyncTask<Void, Void, Void> {
+    private static class DeleteAllReadingsAsyncTask extends  AsyncTask<Void, Void, Void> {
         private ReadingDao readingDao;
 
         public DeleteAllReadingsAsyncTask(ReadingDao readingDao) {

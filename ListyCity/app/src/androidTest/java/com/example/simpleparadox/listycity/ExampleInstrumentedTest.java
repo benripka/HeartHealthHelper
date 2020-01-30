@@ -1,4 +1,4 @@
-package com.example.listycity;
+package com.example.simpleparadox.listycity;
 
 import android.content.Context;
 
@@ -22,6 +22,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
 
-        assertEquals("com.example.listycity", appContext.getPackageName());
+        assertEquals("com.example.simpleparadox.listycity", appContext.getPackageName());
     }
 }
