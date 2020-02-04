@@ -18,11 +18,10 @@ public class ReadingRepository {
     }
 
     public void insert(Reading reading) { new InsertReadingAsyncTask(readingDao).execute(reading); }
-    public void delete(Reading reading) {new DeleteReadingAsyncTask(readingDao).execute(); }
-    public void  update(Reading reading) { new UpdateReadingAsyncTask(readingDao).execute(); }
+    public void delete(Reading reading) {new DeleteReadingAsyncTask(readingDao).execute(reading); }
+    public void  update(Reading reading) { new UpdateReadingAsyncTask(readingDao).execute(reading); }
     public void deleteAll() { new DeleteAllReadingsAsyncTask(readingDao).execute();}
     public LiveData<List<Reading>> getAllReadings() { return allReadings; }
-
 
     private static class InsertReadingAsyncTask extends AsyncTask<Reading, Void, Void> {
 

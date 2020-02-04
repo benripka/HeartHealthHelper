@@ -14,7 +14,7 @@
         android:text="New Reading"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Headline3"
-        android:textColor="@color/colorAccent"
+        android:textColor="@color/colorPrimaryDark"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -40,7 +40,7 @@
             android:layout_height="wrap_content"
             android:layout_row="0"
             android:layout_column="0"
-            android:text="Heart Rate"
+            android:text="Heart Rate (BBM)"
             android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
         <EditText
@@ -113,8 +113,9 @@
             android:layout_gravity="right"
             android:inputType="date"
             android:focusable="false"
-            android:hint="MM/DD/YYYY"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+            android:hint="yyyy-mm-dd"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textAlignment="viewEnd"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -133,7 +134,7 @@
             android:layout_column="1"
             android:layout_gravity="right"
             android:inputType="time"
-            android:hint="12:00pm"
+            android:hint="22:00"
             android:textAppearance="@style/TextAppearance.AppCompat.Large" />
     </GridLayout>
 
@@ -178,6 +179,21 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.954"
         app:layout_constraintStart_toStartOf="parent"
+        android:backgroundTint="@color/colorPrimaryDark"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.976" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:id="@+id/cancel_button"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_clear_black_24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/submit_reading_button"
+        app:layout_constraintHorizontal_bias="0.939"
+        app:layout_constraintStart_toStartOf="parent"
+        android:backgroundTint="@color/colorPrimaryDark"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.976" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

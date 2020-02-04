@@ -9,9 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".NewReadingActivity"
-            android:parentActivityName=".MainActivity"></activity>
-        <activity android:name=".MainActivity"
+        <activity
+            android:name=".EditReadingActivity"
+            android:parentActivityName=".ListReadingsActivity" />
+        <activity
+            android:name=".ListReadingsActivity"
             android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
